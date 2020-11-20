@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FireFighter{% endblock %}
+
+{% block body %}
+    <h1>FireFighter</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fire_fighter.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ fire_fighter.name }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ fire_fighter.address }}</td>
+            </tr>
+            <tr>
+                <th>PhoneNumber</th>
+                <td>{{ fire_fighter.phoneNumber }}</td>
+            </tr>
+            <tr>
+                <th>Points</th>
+                <td>{{ fire_fighter.points }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('fire_fighter_index') }}">back to list</a>
+
+    <a href="{{ path('fire_fighter_edit', {'id': fire_fighter.id}) }}">edit</a>
+
+    {{ include('fire_fighter/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit FireFighter{% endblock %}
+
+{% block body %}
+    <h1>Edit FireFighter</h1>
+
+    {{ include('fire_fighter/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('fire_fighter_index') }}">back to list</a>
+
+    {{ include('fire_fighter/_delete_form.html.twig') }}
+{% endblock %}

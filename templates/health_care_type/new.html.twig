@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New HealthCareType{% endblock %}
+
+{% block body %}
+    <h1>Create new HealthCareType</h1>
+
+    {{ include('health_care_type/_form.html.twig') }}
+
+    <a href="{{ path('health_care_type_index') }}">back to list</a>
+{% endblock %}

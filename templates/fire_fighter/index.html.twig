@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FireFighter index{% endblock %}
+
+{% block body %}
+    <h1>FireFighter index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>PhoneNumber</th>
+                <th>Points</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fire_fighter in fire_fighters %}
+            <tr>
+                <td>{{ fire_fighter.id }}</td>
+                <td>{{ fire_fighter.name }}</td>
+                <td>{{ fire_fighter.address }}</td>
+                <td>{{ fire_fighter.phoneNumber }}</td>
+                <td>{{ fire_fighter.points }}</td>
+                <td>
+                    <a href="{{ path('fire_fighter_show', {'id': fire_fighter.id}) }}">show</a>
+                    <a href="{{ path('fire_fighter_edit', {'id': fire_fighter.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('fire_fighter_new') }}">Create new</a>
+{% endblock %}

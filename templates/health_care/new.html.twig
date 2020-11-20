@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New HealthCare{% endblock %}
+
+{% block body %}
+    <h1>Create new HealthCare</h1>
+
+    {{ include('health_care/_form.html.twig') }}
+
+    <a href="{{ path('health_care_index') }}">back to list</a>
+{% endblock %}
+
+{% block javascripts %}
+	{# {{ include('health_care/js.html.twig') }} #}
+{% endblock %}

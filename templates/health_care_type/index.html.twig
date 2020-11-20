@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HealthCareType index{% endblock %}
+
+{% block body %}
+    <h1>HealthCareType index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for health_care_type in health_care_types %}
+            <tr>
+                <td>{{ health_care_type.id }}</td>
+                <td>{{ health_care_type.name }}</td>
+                <td>{{ health_care_type.description }}</td>
+                <td>
+                    <a href="{{ path('health_care_type_show', {'id': health_care_type.id}) }}">show</a>
+                    <a href="{{ path('health_care_type_edit', {'id': health_care_type.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('health_care_type_new') }}">Create new</a>
+{% endblock %}
