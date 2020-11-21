@@ -46,6 +46,11 @@ class Ambulance
      */
     private $ambulanceDrivers;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
     public function __construct()
     {
         $this->ambulanceDrivers = new ArrayCollection();
@@ -132,5 +137,22 @@ class Ambulance
         }
 
         return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }  
+
+    public function __toString()
+    {
+        return $this->plate;
     }
 }

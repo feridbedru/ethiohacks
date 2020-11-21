@@ -19,6 +19,19 @@ class AmbulanceDriverRepository extends ServiceEntityRepository
         parent::__construct($registry, AmbulanceDriver::class);
     }
 
+    public function findDriver($search=null, $ambulance=null)
+    {
+        $qb=$this->createQueryBuilder('a');
+        if($search)
+            $qb->andWhere("a.name  LIKE '%".$search."%'");
+        if($search)
+            $qb->andWhere("a.ambulance = val1: ")
+            ->setParameter('val1', $ambulance);
+            return 
+            $qb->orderBy('a.id', 'ASC')
+            ->getQuery();
+    }
+
     // /**
     //  * @return AmbulanceDriver[] Returns an array of AmbulanceDriver objects
     //  */

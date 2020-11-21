@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Ambulance;
+use App\Entity\AmbulanceDriver;
 use App\Form\AmbulanceType;
+use App\Form\AmbulanceDriverType;
 use App\Repository\AmbulanceRepository;
+use App\Repository\AmbulanceDriverRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/ambulance")
@@ -49,12 +53,62 @@ class AmbulanceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="ambulance_show", methods={"GET"})
+     * @Route("/{id}", name="ambulance_show", methods={"GET","POST"})
      */
-    public function show(Ambulance $ambulance): Response
+    public function show(Ambulance $ambulance, AmbulanceDriverRepository $ambulanceDriverRepository,Request $request, PaginatorInterface $paginator): Response
     {
-        return $this->render('ambulance/show.html.twig', [
-            'ambulance' => $ambulance,
+        if($request->request->get('edit')){ 
+            $id=$request->request->get('edit');
+            $type=$ambulanceDriverRepository->findOneBy(['id'=>$id]);
+            $form = $this->createForm(AmbulanceDriverType::class, $type);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash("success","updated Successfully!!!");
+    
+                return $this->redirectToRoute('ambulance_show', ["id"=>$ambulanceDriver->getAmbulance()->getId()]);
+            }
+
+            $queryBuilder=$ambulanceDriverRepository->findDriver($request->query->get('search'));
+            $data=$paginator->paginate(
+                $queryBuilder,
+                $request->query->getInt('page',1),
+                18
+            );
+            return $this->render('ambulance/driver.html.twig', [
+                'ambulance_drivers' => $data,
+                'form' => $form->createView(),
+                'edit'=>$id
+            ]);
+        }
+
+        $ambulanceDriver = new AmbulanceDriver();
+        $form = $this->createForm(AmbulanceDriverType::class, $ambulanceDriver);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $ambulanceDriver->setAmbulance($ambulance);
+            $entityManager->persist($ambulanceDriver);
+            $entityManager->flush();
+            $this->addFlash("success","Registered Successfully!!!");
+
+            return $this->redirectToRoute('ambulance_show', ["id"=>$ambulanceDriver->getAmbulance()->getId()]);
+        }
+
+
+        $queryBuilder=$ambulanceDriverRepository->findDriver($request->query->get('search'), $ambulance);
+        
+        $data=$paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page',1),
+            18
+        );
+        return $this->render('ambulance/driver.html.twig', [
+            'ambulance_drivers' => $data,
+            'form' => $form->createView(),
+            'edit'=>false
         ]);
     }
 
@@ -90,5 +144,19 @@ class AmbulanceController extends AbstractController
         }
 
         return $this->redirectToRoute('ambulance_index');
+    }
+
+        /**
+     * @Route("/{id}", name="ambulance_driver_delete", methods={"DELETE"})
+     */
+    public function deletedriver(Request $request, AmbulanceDriver $ambulanceDriver): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$ambulanceDriver->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($ambulanceDriver);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('ambulance_show', ["id"=>$ambulanceDriver->getAmbulance()->getId()]);
     }
 }

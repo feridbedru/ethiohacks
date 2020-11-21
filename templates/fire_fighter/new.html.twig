@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New FireFighter{% endblock %}
-
+{% block maintitle %}New Fire Fighter{% endblock %}
+{% block breadcrumb %} 
+<li class="breadcrumb-item ">Fire Fighter</li>
+<li class="breadcrumb-item active">New</li>
+{% endblock %}
 {% block body %}
-    <h1>Create new FireFighter</h1>
 
     {{ include('fire_fighter/_form.html.twig') }}
 

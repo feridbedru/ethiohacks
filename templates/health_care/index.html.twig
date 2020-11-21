@@ -1,30 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}HealthCare index{% endblock %}
-
+{% block maintitle %}Health Care index{% endblock %}
+{% block breadcrumb %} 
+<li class="breadcrumb-item active">Health Care</li>
+{% endblock %}
 {% block body %}
-    <h1>HealthCare index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Name</th>
-                <th>Points</th>
-                <th>PhoneNumber</th>
+                <th>Address</th>
+                <th>Phone Number</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
+        {% set i = 1 %}
         {% for health_care in health_cares %}
             <tr>
-                <td>{{ health_care.id }}</td>
+                <td>
+                    {{ i }}
+                    {% set i = i+1 %}
+                </td>
                 <td>{{ health_care.name }}</td>
-                <td>{{ health_care.points }}</td>
+                <td>{{ health_care.address }}</td>
                 <td>{{ health_care.phoneNumber }}</td>
                 <td>
-                    <a href="{{ path('health_care_show', {'id': health_care.id}) }}">show</a>
-                    <a href="{{ path('health_care_edit', {'id': health_care.id}) }}">edit</a>
+                    <a href="{{ path('health_care_show', {'id': health_care.id}) }}">
+                    <button class="btn btn-primary btn-sm mr-3" title="Show">
+                        <i class="fa fa-eye"></i>
+                    </button></a>
+                    <a href="{{ path('health_care_edit', {'id': health_care.id}) }}">
+                    <button class="btn btn-info btn-sm" title="Edit">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    </a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +47,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('health_care_new') }}">Create new</a>
+    <a href="{{ path('health_care_new') }}" class="btn btn-success">Create new</a>
 {% endblock %}
