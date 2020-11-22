@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %} | Emergency App{% endblock %}</title>
+        <title>{% block title %} {% endblock %} | Emergency App</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('asset/plugins/fontawesome-free/css/all.min.css')}}">
             <!-- Theme style -->
@@ -33,7 +33,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="#" class="brand-link">
       <span class="brand-text font-weight-light">Ethio Emergency</span>
     </a>
 
@@ -71,7 +71,7 @@
           </li> #}
           <li class="nav-item">
             <a href="{{path('health_care_index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-hospital"></i>
               <p>
                 Health Care
               </p>
@@ -79,7 +79,7 @@
           </li>
           <li class="nav-item">
             <a href="{{path('ambulance_index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-ambulance"></i>
               <p>
                 Ambulance
               </p>
@@ -87,7 +87,7 @@
           </li>
           <li class="nav-item">
             <a href="{{path('fire_fighter_index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-fire"></i>
               <p>
                 Fire Fighter
               </p>
@@ -95,7 +95,7 @@
           </li>
           <li class="nav-item">
             <a href="{{path('pharmacy_index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-band-aid"></i>
               <p>
                 Pharmacy
               </p>
@@ -103,7 +103,7 @@
           </li>
           <li class="nav-item">
             <a href="{{path('region_index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-globe"></i>
               <p>
                 Region
               </p>
@@ -133,7 +133,7 @@
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               {% block breadcrumb %}
                 
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <li class="breadcrumb-item active">Dashboard</li>
               
               {% endblock %}
             </ol>
@@ -146,16 +146,19 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <div class="row">
-        {% block body %}
-          {% for label, messages in app.flashes %}
+      {% for label, messages in app.flashes %}
                 {% for message in messages %}
                     <div class="alert alert-{{ label }}" role="alert">
                         {{ message }}
                     </div>
                 {% endfor %}
             {% endfor %}
-            {% endblock %}
+        <div class="row">
+        
+
+        {% block body %}
+          
+        {% endblock %}
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

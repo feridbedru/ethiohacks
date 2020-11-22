@@ -1,51 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block maintitle %}Health Care index{% endblock %}
-{% block breadcrumb %} 
-<li class="breadcrumb-item active">Health Care</li>
+{% block maintitle %}Health Care index
+{% endblock %}
+{% block title %}Health Care index
+{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item active">Health Care</li>
 {% endblock %}
 {% block body %}
+	<a href="{{ path('health_care_new') }}">
+		<div
+			class="col-lg-3 col-6">
+			<!-- small card -->
+			<div class="small-box bg-info text-center">
+				<i class="fas fa-plus fa-5x mt-3"></i>
+				<div class="inner">
+					<h3>Health Care</h3>
+				</div>
+				<a href="{{ path('health_care_new') }}" class="small-box-footer">
+					Add Now
+					<i class="fas fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+	</a>
+	{% for health_care in health_cares %}
+		<div
+			class="col-lg-3 col-6 col-sm-4">
+			<!-- small card -->
+			<div class="small-box bg-info">
+				<div class="inner">
+					<h3 class="text-wrap mr-4">{{ health_care.name }}</h3>
+					<p>{{ health_care.address }}</p>
+					<p>
+						<i class="fas fa-phone"></i>
+						{{ health_care.phoneNumber }}</p>
+				</div>
+				<div class="icon">
+					<i class="fas fa-hospital"></i>
+				</div>
+				<div class="small-box-footer">
+					<a href="{{ path('health_care_show', {'id': health_care.id}) }}" class="text-white d-inline ml-5 mr-5">
+						More info
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+					<a href="{{ path('health_care_edit', {'id': health_care.id}) }}" class="text-white d-inline">
+						Edit
+						<i class="fas fa-edit"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h2 class="text-mute">no records found</h2>
+	{% endfor %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Phone Number</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% set i = 1 %}
-        {% for health_care in health_cares %}
-            <tr>
-                <td>
-                    {{ i }}
-                    {% set i = i+1 %}
-                </td>
-                <td>{{ health_care.name }}</td>
-                <td>{{ health_care.address }}</td>
-                <td>{{ health_care.phoneNumber }}</td>
-                <td>
-                    <a href="{{ path('health_care_show', {'id': health_care.id}) }}">
-                    <button class="btn btn-primary btn-sm mr-3" title="Show">
-                        <i class="fa fa-eye"></i>
-                    </button></a>
-                    <a href="{{ path('health_care_edit', {'id': health_care.id}) }}">
-                    <button class="btn btn-info btn-sm" title="Edit">
-                        <i class="fa fa-edit"></i>
-                    </button>
-                    </a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('health_care_new') }}" class="btn btn-success">Create new</a>
 {% endblock %}

@@ -1,4 +1,52 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form,{'attr': {'role':'form'}}) }}
+
+<div class="row mb-4">
+	<div class="col-md-6 ">
+		<label class="control-label no-padding-right">Plate Number</label>
+		{{ form_widget(form.plate,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+	<div class="col-md-6 ">
+		<label class="control-label no-padding-right">GPS ID</label>
+		{{ form_widget(form.gps,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+</div>
+
+<div class="row mb-4">
+	<div class="col-md-6 ">
+		<label class="control-label no-padding-right">{{ form_label(form.owner) }}</label>
+		{{ form_widget(form.owner,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+	<div class="col-md-6 ">
+		<label class="control-label no-padding-right">{{ form_label(form.status) }}</label>
+		{{ form_widget(form.status,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+</div>
+
+
+<div class="row mb-3">
+	<div class="col-md-4 ">
+		<label class="control-label no-padding-right">{{ form_label(form.region) }}</label>
+		{{ form_widget(form.region,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+	<div class="col-md-4 ">
+		<label class="control-label no-padding-right">{{ form_label(form.zone) }}</label>
+		{{ form_widget(form.zone,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+
+	<div class="col-md-4">
+		<label class="control-label no-padding-right mt-2">Woreda</label>
+		{{ form_widget(form.primaryLocation,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+</div>
+
+<button class="btn btn-info">{{ button_label|default('Save') }}</button>
+<button class="btn  btn-warning " style="margin-right:20px;" type="reset">Reset</button>
+
 {{ form_end(form) }}

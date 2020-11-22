@@ -1,4 +1,49 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form,{'attr': {'role':'form'}}) }}
+	<div class="form-group ">
+		<label class="control-label no-padding-right">{{ form_label(form.name) }}</label>
+		{{ form_widget(form.name,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+
+	<div class="form-group ">
+		<label class="control-label no-padding-right">{{ form_label(form.address) }}</label>
+		{{ form_widget(form.address,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+<div class="row mb-3">
+	<div class="col-md-4 ">
+		<label class="control-label no-padding-right">{{ form_label(form.region) }}</label>
+		{{ form_widget(form.region,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+	<div class="col-md-4 ">
+		<label class="control-label no-padding-right">{{ form_label(form.zone) }}</label>
+		{{ form_widget(form.zone,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+
+	<div class="col-md-4">
+		<label class="control-label no-padding-right">{{ form_label(form.woreda) }}</label>
+		{{ form_widget(form.woreda,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+    </div>
+
+	<div class="row mb-4">
+	<div class="col-md-6 ">
+		<label class="control-label no-padding-right">{{ form_label(form.points) }}</label>
+		{{ form_widget(form.points,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+	<div class="col-md-6 ">
+		<label class="control-label no-padding-right">{{ form_label(form.phoneNumber) }}</label>
+		{{ form_widget(form.phoneNumber,{'attr':{'class':'form-control'}}) }}
+		<div class="help-block with-errors"></div>
+	</div>
+
+	</div>
+	
+			<button class="btn btn-info">{{ button_label|default('Save') }}</button>
+			<button class="btn  btn-warning " style="margin-right:20px;" type="reset">Reset</button>
+
 {{ form_end(form) }}

@@ -1,13 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit FireFighter{% endblock %}
-
+{% block maintitle %}Edit FireFighter{% endblock %}
+{% block breadcrumb %} 
+<li class="breadcrumb-item"><a href="{{ path('fire_fighter_index') }}">Fire Fighter</a></li>
+<li class="breadcrumb-item active">New</li>
+{% endblock %}
 {% block body %}
-    <h1>Edit FireFighter</h1>
-
+<div class="col-md-12 mx-auto">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Edit Fire Fighter Station</h3>
+              </div>
+              <div class="card-body">
     {{ include('fire_fighter/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('fire_fighter_index') }}">back to list</a>
+</div>
+</div>
+</div>
 
     {{ include('fire_fighter/_delete_form.html.twig') }}
 {% endblock %}

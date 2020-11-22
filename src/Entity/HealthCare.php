@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HealthCareRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,6 +50,16 @@ class HealthCare
      * @ORM\JoinColumn(nullable=false)
      */
     private $woreda;
+
+    /**
+     * @ORM\OneToMany(targetEntity=HealthCareFacility::class, mappedBy="healthcare")
+     */
+    private $healthCareFacilities;
+
+    public function __construct()
+    {
+        $this->healthCareFacilities = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -124,5 +136,42 @@ class HealthCare
         $this->woreda = $woreda;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|HealthCareFacility[]
+     */
+    public function getHealthCareFacilities(): Collection
+    {
+        return $this->healthCareFacilities;
+    }
+
+    public function addHealthCareFacility(HealthCareFacility $healthCareFacility): self
+    {
+        if (!$this->healthCareFacilities->contains($healthCareFacility)) {
+            $this->healthCareFacilities[] = $healthCareFacility;
+            $healthCareFacility->setHealthcare($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHealthCareFacility(HealthCareFacility $healthCareFacility): self
+    {
+        if ($this->healthCareFacilities->removeElement($healthCareFacility)) {
+            // set the owning side to null (unless already changed)
+            if ($healthCareFacility->getHealthcare() === $this) {
+                $healthCareFacility->setHealthcare(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

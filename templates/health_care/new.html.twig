@@ -1,17 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block maintitle %}New Health Care{% endblock %}
+{% block title %}New Health Care{% endblock %}
 {% block breadcrumb %} 
-<li class="breadcrumb-item ">Health Care</li>
+<li class="breadcrumb-item"><a href="{{ path('health_care_index') }}">Health Care</a></li>
 <li class="breadcrumb-item active">New</li>
 {% endblock %}
 {% block body %}
-
+<div class="col-md-12 mx-auto">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">New Health Care</h3>
+              </div>
+              <div class="card-body">
     {{ include('health_care/_form.html.twig') }}
-
-    {# <a href="{{ path('health_care_index') }}">back to list</a> #}
-{% endblock %}
-
-{% block javascripts %}
-	{# {{ include('health_care/js.html.twig') }} #}
+</div>
+</div>
+</div>
 {% endblock %}

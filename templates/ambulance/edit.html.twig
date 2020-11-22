@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit Ambulance{% endblock %}
-
+{% block maintitle %}Edit Ambulance{% endblock %}
+{% block breadcrumb %} 
+<li class="breadcrumb-item"><a href="{{ path('ambulance_index') }}">Ambulance</a></li>
+<li class="breadcrumb-item active">Edit</li>
+{% endblock %}
 {% block body %}
-    <h1>Edit Ambulance</h1>
-
+<div class="col-md-12 mx-auto">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Edit Ambulance</h3>
+              </div>
+              <div class="card-body">
     {{ include('ambulance/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('ambulance_index') }}">back to list</a>
-
+</div>
+</div>
+</div>
     {{ include('ambulance/_delete_form.html.twig') }}
 {% endblock %}

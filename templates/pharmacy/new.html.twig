@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}New Pharmacy{% endblock %}
-
+{% block maintitle %}New Pharmacy{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item"><a href="{{ path('pharmacy_index') }}">Pharmacy</a></li>
+	<li class="breadcrumb-item active">New</li>
+{% endblock %}
 {% block body %}
-    <h1>Create new Pharmacy</h1>
-
+<div class="col-md-12 mx-auto">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">New Pharmacy</h3>
+              </div>
+              <div class="card-body">
     {{ include('pharmacy/_form.html.twig') }}
-
-    <a href="{{ path('pharmacy_index') }}">back to list</a>
+</div>
+</div>
+</div>
 {% endblock %}

@@ -67,10 +67,10 @@ class AmbulanceController extends AbstractController
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash("success","updated Successfully!!!");
     
-                return $this->redirectToRoute('ambulance_show', ["id"=>$ambulanceDriver->getAmbulance()->getId()]);
+                return $this->redirectToRoute('ambulance_show', ["id"=>$ambulance->getId()]);
             }
 
-            $queryBuilder=$ambulanceDriverRepository->findDriver($request->query->get('search'));
+            $queryBuilder=$ambulanceDriverRepository->findDriver($request->query->get('search'), $ambulance);
             $data=$paginator->paginate(
                 $queryBuilder,
                 $request->query->getInt('page',1),
@@ -78,6 +78,7 @@ class AmbulanceController extends AbstractController
             );
             return $this->render('ambulance/driver.html.twig', [
                 'ambulance_drivers' => $data,
+                'ambulance' => $ambulance,
                 'form' => $form->createView(),
                 'edit'=>$id
             ]);
@@ -94,7 +95,7 @@ class AmbulanceController extends AbstractController
             $entityManager->flush();
             $this->addFlash("success","Registered Successfully!!!");
 
-            return $this->redirectToRoute('ambulance_show', ["id"=>$ambulanceDriver->getAmbulance()->getId()]);
+            return $this->redirectToRoute('ambulance_show', ["id"=>$ambulance->getId()]);
         }
 
 
@@ -107,6 +108,7 @@ class AmbulanceController extends AbstractController
         );
         return $this->render('ambulance/driver.html.twig', [
             'ambulance_drivers' => $data,
+            'ambulance' => $ambulance,
             'form' => $form->createView(),
             'edit'=>false
         ]);
@@ -146,7 +148,7 @@ class AmbulanceController extends AbstractController
         return $this->redirectToRoute('ambulance_index');
     }
 
-        /**
+    /**
      * @Route("/{id}", name="ambulance_driver_delete", methods={"DELETE"})
      */
     public function deletedriver(Request $request, AmbulanceDriver $ambulanceDriver): Response

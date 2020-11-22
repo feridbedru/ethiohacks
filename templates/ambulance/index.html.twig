@@ -1,51 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block maintitle %}Ambulance index{% endblock %}
+{% block title %}Ambulance index{% endblock %}
 {% block breadcrumb %} 
 <li class="breadcrumb-item active">Ambulance</li>
 {% endblock %}
 {% block body %}
+<a href="{{ path('ambulance_new') }}">
+		<div
+			class="col-lg-3 col-6">
+			<!-- small card -->
+			<div class="small-box bg-warning text-center">
+				<i class="fas fa-plus fa-5x mt-3"></i>
+				<div class="inner">
+					<h3>Ambulance</h3>
+				</div>
+				<a href="{{ path('ambulance_new') }}" class="small-box-footer">
+					Add Now
+					<i class="fas fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+	</a>
+{% for ambulance in ambulances %}
+<div
+			class="col-lg-3 col-6 col-sm-4">
+			<!-- small card -->
+			<div class="small-box bg-warning">
+				<div class="inner">
+					<h3 class="text-wrap mr-4">{{ ambulance.plate }}</h3>
+					<p>{{ ambulance.owner }}</p>
+					<p>GPS: 
+						<i class="fas fa-pin-location"></i>
+						{{ ambulance.gps }}</p>
+				</div>
+				<div class="icon">
+					<i class="fas fa-ambulance mt-5"></i>
+				</div>
+				<div class="small-box-footer">
+					<a href="{{ path('ambulance_show', {'id': ambulance.id}) }}" class="text-white d-inline ml-5 mr-5">
+						More info
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+					<a href="{{ path('ambulance_edit', {'id': ambulance.id}) }}" class="text-white d-inline">
+						Edit
+						<i class="fas fa-edit"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h2 class="text-mute">no records found</h2>
+	{% endfor %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Plate</th>
-                <th>Owner</th>
-                <th>GPS ID</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% set i = 1 %}
-        {% for ambulance in ambulances %}
-            <tr>
-                <td>
-                    {{ i }}
-                    {% set i = i+1 %}
-                </td>
-                <td>{{ ambulance.plate }}</td>
-                <td>{{ ambulance.owner }}</td>
-                <td>{{ ambulance.gps }}</td>
-                <td>
-                    <a href="{{ path('ambulance_show', {'id': ambulance.id}) }}">
-                    <button class="btn btn-primary btn-sm mr-3" title="Show">
-                        <i class="fa fa-eye"></i>
-                    </button></a>
-                    <a href="{{ path('ambulance_edit', {'id': ambulance.id}) }}">
-                    <button class="btn btn-info btn-sm" title="Edit">
-                        <i class="fa fa-edit"></i>
-                    </button>
-                    </a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('ambulance_new') }}"  class="btn btn-success">Create new</a>
 {% endblock %}

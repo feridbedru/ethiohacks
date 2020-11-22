@@ -1,41 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Pharmacy index{% endblock %}
-
+{% block maintitle %}Pharmacy index{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item active">Pharmacy</li>
+{% endblock %}
 {% block body %}
-    <h1>Pharmacy index</h1>
+<a href="{{ path('pharmacy_new') }}">
+		<div
+			class="col-lg-3 col-6">
+			<!-- small card -->
+			<div class="small-box bg-info text-center">
+				<i class="fas fa-plus fa-5x mt-3"></i>
+				<div class="inner">
+					<h3>Pharmacy</h3>
+				</div>
+				<a href="{{ path('pharmacy_new') }}" class="small-box-footer">
+					Add Now
+					<i class="fas fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+	</a>
+{% for pharmacy in pharmacies %}
+<div
+			class="col-lg-3 col-6 col-sm-4">
+			<!-- small card -->
+			<div class="small-box bg-info">
+				<div class="inner">
+					<h3 class="text-wrap mr-4">{{ pharmacy.name }}</h3>
+					<p>{{ pharmacy.address }}</p>
+					<p>
+						<i class="fas fa-phone"></i>
+						{{ pharmacy.phoneNumber }}</p>
+				</div>
+				<div class="icon">
+					<i class="fas fa-band-aid mt-5"></i>
+				</div>
+				<div class="small-box-footer">
+					<a href="{{ path('pharmacy_show', {'id': pharmacy.id}) }}" class="text-white d-inline ml-5 mr-5">
+						More info
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+					<a href="{{ path('pharmacy_edit', {'id': pharmacy.id}) }}" class="text-white d-inline">
+						Edit
+						<i class="fas fa-edit"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h2 class="text-mute">no records found</h2>
+	{% endfor %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>PhoneNumber</th>
-                <th>Points</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for pharmacy in pharmacies %}
-            <tr>
-                <td>{{ pharmacy.id }}</td>
-                <td>{{ pharmacy.name }}</td>
-                <td>{{ pharmacy.address }}</td>
-                <td>{{ pharmacy.phoneNumber }}</td>
-                <td>{{ pharmacy.points }}</td>
-                <td>
-                    <a href="{{ path('pharmacy_show', {'id': pharmacy.id}) }}">show</a>
-                    <a href="{{ path('pharmacy_edit', {'id': pharmacy.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('pharmacy_new') }}">Create new</a>
 {% endblock %}

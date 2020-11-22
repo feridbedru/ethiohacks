@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Health Care Facility
+{% endblock %}
+{% block maintitle %}Health Care Facility
+{% endblock %}
+{% block breadcrumb %}
+	<li class="breadcrumb-item">
+		<a href="{{ path('health_care_index') }}">Health Care</a>
+	</li>
+	<li class="breadcrumb-item active">Facility</li>
+{% endblock %}
+{% block body %}
+	
+					<div class="col-md-4">
+						<div class="card card-info">
+							<div class="card-header">
+								<h3 class="card-title">
+									{% if edit  %}
+										Edit
+									{% else %}
+										New
+									{% endif %}
+								</h3>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								{% if edit  %}
+									{% set button_label = 'Update' %}
+								{% endif %}
+								{{ include('health_care/f_form.html.twig') }}
+							</div>
+							<!-- /.card-body -->
+						</div>
+						</div>
+                        
+					<div class="col-md-8">
+						<div class="card card-info">
+							<div class="card-header">
+								<h3 class="card-title">
+									Facility
+								</h3>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								<table class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>actions</th>
+							</tr>
+						</thead>
+						<tbody>
+                        {% set i = 1 %}
+							{% for health_care_facility in health_care_facilities %}
+								<tr>
+									<td>
+                                        {{ i }}
+                                        {% set i = i+1 %}
+                                    </td>
+                                    <td> {{health_care_facility.name}}</td>
+                                    <td> <p class="text-wrap">{{health_care_facility.description}}</p></td>
+									<td>
+                                    <form class="d-inline" method="post">
+                                                        <input type="hidden" name="edit" value="{{health_care_facility.id}}">
+                                                        <button class="btn btn-info btn-sm" title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                    </form>
+                                                    <form class="d-inline" method="post"
+                                                        action="{{ path('health_care_facility_delete', {'id': health_care_facility.id}) }}"
+                                                        onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token"
+                                                            value="{{ csrf_token('delete' ~ health_care_facility.id) }}">
+                                                        <button class="btn btn-danger btn-sm" title="Delete">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="2">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+							</div>
+							<!-- /.card-body -->
+						</div>
+						</div>
+
+
+					
+
+				{% endblock %}

@@ -1,50 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block maintitle %}Fire Fighter index{% endblock %}
+{% block title %}Fire Fighter index{% endblock %}
 {% block breadcrumb %} 
 <li class="breadcrumb-item active">Fire Fighter</li>
 {% endblock %}
 {% block body %}
+<a href="{{ path('fire_fighter_new') }}">
+		<div
+			class="col-lg-3 col-6">
+			<!-- small card -->
+			<div class="small-box bg-danger text-center">
+				<i class="fas fa-plus fa-5x mt-3"></i>
+				<div class="inner">
+					<h3>Fire Fighter</h3>
+				</div>
+				<a href="{{ path('fire_fighter_new') }}" class="small-box-footer">
+					Add Now
+					<i class="fas fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div>
+	</a>
+    {% for fire_fighter in fire_fighters %}
+    <div
+			class="col-lg-3 col-6 col-sm-4">
+			<!-- small card -->
+			<div class="small-box bg-danger">
+				<div class="inner">
+					<h3 class="text-wrap mr-4">{{ fire_fighter.name }}</h3>
+					<p>{{ fire_fighter.address }}</p>
+					<p>
+						<i class="fas fa-phone"></i>
+						{{ fire_fighter.phoneNumber }}</p>
+				</div>
+				<div class="icon">
+					<i class="fas fa-fire mt-4"></i>
+				</div>
+				<div class="small-box-footer">
+					<a href="{{ path('fire_fighter_show', {'id': fire_fighter.id}) }}" class="text-white d-inline ml-5 mr-5">
+						More info
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+					<a href="{{ path('fire_fighter_edit', {'id': fire_fighter.id}) }}" class="text-white d-inline">
+						Edit
+						<i class="fas fa-edit"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h2 class="text-mute">no records found</h2>
+	{% endfor %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Phone Number</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% set i = 1 %}
-        {% for fire_fighter in fire_fighters %}
-            <tr>
-                <td>
-                    {{ i }}
-                    {% set i = i+1 %}
-                </td>
-                <td>{{ fire_fighter.name }}</td>
-                <td>{{ fire_fighter.address }}</td>
-                <td>{{ fire_fighter.phoneNumber }}</td>
-                <td>
-                    <a href="{{ path('fire_fighter_show', {'id': fire_fighter.id}) }}">
-                    <button class="btn btn-primary btn-sm mr-3" title="Show">
-                        <i class="fa fa-eye"></i>
-                    </button></a>
-                    <a href="{{ path('fire_fighter_edit', {'id': fire_fighter.id}) }}">
-                    <button class="btn btn-info btn-sm" title="Edit">
-                        <i class="fa fa-edit"></i>
-                    </button></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('fire_fighter_new') }}"  class="btn btn-success">Create new</a>
 {% endblock %}
